@@ -14,5 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
 });
+Route::group(['middleware'=>'auth'],function (){
+    Route::resource('videos',\App\Http\Controllers\VideoController::class);
+
+});
+//Route::get('/videos/{video}',[\App\Http\Controllers\VideoController::class,'index'])->name('videos.show');
+//Route::get('/videos',[\App\Http\Controllers\VideoController::class,'index'])->name('videos.index');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/notification',[\App\Http\Controllers\NotificationController::class,'index'])->name('notification.index');
